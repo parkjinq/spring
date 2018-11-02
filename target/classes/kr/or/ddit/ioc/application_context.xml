@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 선언부분 자동화 >> 하단 Namespaces -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- boardService객체의 boardDao 속성에 spring bean(boardDao)를 주입 : DI -->
+	<bean id="boardDao" class="kr.or.ddit.board.dao.BoardDao"/><!-- 초반에러 : 지금 쓴 클래스가 존재하지 않기 때문에 -->
+	<bean id="boardService" class="kr.or.ddit.board.service.BoardService">
+		<property name="boardDao" ref="boardDao"></property><!-- ref = bean id --> 
+	</bean>
+
+	<!-- 생성자를 통한 주입 -->
+	<bean id="boardServiceConst" class="kr.or.ddit.board.service.BoardService">
+		<constructor-arg ref="boardDao"></constructor-arg>
+	</bean>
+	
+	<!-- 싱글톤 스프링 빈 -->
+	<!-- spring bean scope singleton : bean id당 하나의 객체만 생성 -->
+	<!-- spring bean scope : singleton(default) VM 해당객체가 하나만 존재하도록하는 디자인패턴-->
+	<bean id="boardDaoSingleton" class="kr.or.ddit.board.dao.BoardDao" scope="singleton"/>
+
+	<!-- 프로토타입 스프링 빈 -->
+	<!-- scope-prototype : DL시마다 매번 새로운 객체를 생성 -->
+	<bean id="boardDaoPrototype" class="kr.or.ddit.board.dao.BoardDao" scope="prototype"/>
+		
+	
+</beans>
