@@ -9,6 +9,8 @@
 
 	<typeAliases>
 		<typeAlias type="kr.or.ddit.file.model.FileVO" alias="fileVO" />
+		<typeAlias type="kr.or.ddit.user.model.UserVO" alias="userVO" />
+		<typeAlias type="kr.or.ddit.util.model.PageVO" alias="pageVO" />
 	</typeAliases>
 
 	<environments default="development">
@@ -25,6 +27,7 @@
 
 	<mappers>
 		<mapper resource="kr/or/ddit/config/db/file.xml" />
+		<mapper resource="kr/or/ddit/config/db/user.xml" />
 	</mappers>
 
 </configuration>
