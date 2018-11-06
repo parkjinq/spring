@@ -25,7 +25,6 @@ public class UserController {
 		if("brown".equals(userId) && "brownpass".equals(pass)) {
 			return "main";
 		} else {
-			
 			return "login/login";
 		}
 	}
