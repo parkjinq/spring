@@ -45,7 +45,7 @@
 	
 	<update id="updateUser" parameterType="userVo">
 		UPDATE  jspuser
-		SET     name=#{name}, pass=#{pass}, addr1=#{addr1}, addr2=#{addr2}, zipcd=#{zipcd}, birth=#{birth}, email=#{email}, tel=#{tel}, profile=#{profile}
+		SET     name=#{name}, pass=#{pass}, addr1=#{addr1}, addr2=#{addr2}, zipcd=#{zipcd}, birth=#{birth}, email=#{email}, tel=#{tel}, profile=#{profile, jdbcType=VARCHAR}
 		WHERE   userid=#{userId}
 	</update>
 	

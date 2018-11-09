@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -125,6 +126,11 @@ public class HelloController {
 		writer.write("<html>");
 		writer.write("spring voidMethod");
 		writer.write("</html>");
+	}
+	
+	@RequestMapping("/exception")
+	public String view() {
+		throw new ArithmeticException();
 	}
 }
 

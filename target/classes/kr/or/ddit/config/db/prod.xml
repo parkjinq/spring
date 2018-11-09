@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prod">
+	
+	<select id="selectProdPageList" parameterType="pageVO" resultType="prodVO">
+		SELECT prod_id
+		    ,  prod_name
+		    ,  lprod_nm
+		    ,  prod_insdate
+		FROM    (SELECT ROWNUM rnum2
+		                , a.*
+		                , lp.lprod_nm
+		        FROM    (SELECT     ROWNUM rnum1
+		                            , prod.*
+		                FROM        prod
+		                ORDER BY    prod_id) a INNER JOIN lprod lp
+		                ON (lp.lprod_gu = a.prod_lgu))
+		WHERE   rnum2 BETWEEN ${page}*${pageSize}-(${pageSize}-1)
+		AND     ${page}*${pageSize}
+	</select>
+	
+	<select id="getProdCnt" resultType="Integer">
+		SELECT COUNT(*) FROM prod
+	</select>
+	
+	<select id="selectProd" parameterType="String" resultType="prodVO">
+		SELECT p.prod_id    AS prod_id
+		    ,  p.prod_name  AS prod_name
+		    ,  lp.lprod_nm  AS lprod_nm
+		    ,  b.buyer_name   AS buyer_name
+		    ,  b.buyer_mail  AS buyer_email
+		FROM prod p INNER JOIN buyer b
+		ON (b.buyer_id = p.prod_buyer) INNER JOIN lprod lp
+		ON (lp.lprod_gu = b.buyer_lgu)
+		WHERE p.prod_id = #{prod_id}
+	</select>
+	
+	<select id="selectProdByLgu" parameterType="String" resultType="prodVO">
+		SELECT * FROM prod
+		WHERE	prod_lgu = #{prod_lgu}
+	</select>
+
+</mapper>
